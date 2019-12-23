@@ -5,12 +5,25 @@
         1,
         null,
         1,
-        2,
-        2,
+        4,
+        3,
+        1,
+        1,
+        1,
+        null,
+        1,
+        1,
+        1,
+        null,
+        null,
         1,
         1,
         1,
         1,
+        null,
+        1,
+        0,
+        0,
         null,
         null,
         null
@@ -20,15 +33,41 @@
         1,
         null,
         1,
+        4,
+        null,
+        null,
         1,
+        2,
         null,
         null,
         1,
         1,
         null,
         null
+      ],
+      "/Users/yaskemp/Desktop/Projects/Post-Makers/Airport-Challenge-2/spec/features/user_stories_spec.rb": [
+        1,
+        null,
+        null,
+        null,
+        1,
+        1,
+        1,
+        2,
+        null,
+        null
+      ],
+      "/Users/yaskemp/Desktop/Projects/Post-Makers/Airport-Challenge-2/spec/plane_spec.rb": [
+        1,
+        null,
+        1,
+        null
+      ],
+      "/Users/yaskemp/Desktop/Projects/Post-Makers/Airport-Challenge-2/lib/plane.rb": [
+        1,
+        null
       ]
     },
-    "timestamp": 1576949917
+    "timestamp": 1577110800
   }
 }
