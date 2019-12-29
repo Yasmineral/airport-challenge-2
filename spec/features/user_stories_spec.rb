@@ -2,14 +2,12 @@ require 'airport'
 require 'plane'
 
 describe 'User Stories' do
-  let(:airport) { Airport.new }
+  let(:airport) { Airport.new(20) }
   let(:plane) { Plane.new }
   # As an air traffic controller 
   # So I can get passengers to a destination 
   # I want to instruct a plane to land at an airport
   it "so planes land at airports, instruct a plane to land" do
-    airport = Airport.new
-    plane = Plane.new
     expect { airport.land(plane) }.not_to raise_error
   end
   # As an air traffic controller 
@@ -24,5 +22,15 @@ describe 'User Stories' do
     airport.land(plane)
     airport.take_off(plane)
     expect { airport.take_off(plane) }.to raise_error "Cannot take off: plane is not at the airport"
+  end
+  # As an air traffic controller 
+  # To ensure safety 
+  # I want to prevent landing when the airport is full 
+  it "does not allow planes to land when the airport is full" do
+    airport = Airport.new(20)
+    20.times do
+      airport.land(plane)
+    end
+    expect { airport.land(plane) }.to raise_error "Cannot land plane: airport full"
   end
 end
