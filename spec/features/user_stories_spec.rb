@@ -1,13 +1,15 @@
 require 'airport'
 require 'plane'
+require 'weather'
 
 describe 'User Stories' do
-  let(:airport) { Airport.new(20) }
+  let(:airport) { Airport.new(20, weather) }
   let(:plane) { Plane.new }
+  let(:weather) { Weather.new }
 
   context "when weather is not stormy" do
     before do
-      allow(airport).to receive(:stormy?).and_return false
+      allow(weather).to receive(:stormy?).and_return false
     end
     # As an air traffic controller 
     # So I can get passengers to a destination 
@@ -48,7 +50,7 @@ describe 'User Stories' do
   
   context "when stormy" do
     before do
-      allow(airport).to receive(:stormy?).and_return true
+      allow(weather).to receive(:stormy?).and_return true
     end
     # As an air traffic controller 
     # To ensure safety 
