@@ -22,18 +22,32 @@ describe Airport do
   end
 
   describe "#take_off" do
-    it "instructs a plane to take-off" do
-      expect(airport).to respond_to(:take_off).with(1).argument
-    end 
-    it "planes are no longer at the airport" do
-      airport.land(plane)
-      airport.take_off(plane)
-      expect(airport.planes).to eq []
+    context "when not stormy" do
+      before do
+        allow(airport).to receive(:stormy?).and_return false
+      end
+      it "instructs a plane to take-off" do
+        expect(airport).to respond_to(:take_off).with(1).argument
+      end 
+      it "no longer stores plane at the airport" do
+        airport.land(plane)
+        airport.take_off(plane)
+        expect(airport.planes).to eq []
+      end
+      it "raises an error when trying to take off a plane that's already in the air" do
+        airport.land(plane)
+        airport.take_off(plane)
+        expect{ airport.take_off(plane) }.to raise_error "Cannot take off: plane is not at the airport"
+      end
     end
-    it "raises an error when trying to take off a plane that's already in the air" do
-      airport.land(plane)
-      airport.take_off(plane)
-      expect{ airport.take_off(plane) }.to raise_error "Cannot take off: plane is not at the airport"
+    context "when weather is stormy" do
+      before do
+        allow(airport).to receive(:stormy?).and_return true
+      end
+      it "does not allow planes to take-off" do
+        airport.land(plane)
+        expect { airport.take_off(plane) }.to raise_error "Cannot take-off plane: weather is too stormy"
+      end
     end
   end
 

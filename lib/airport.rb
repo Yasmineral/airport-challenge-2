@@ -13,6 +13,7 @@ class Airport
   end
 
   def take_off(plane)
+    raise "Cannot take-off plane: weather is too stormy" if stormy?
     raise "Cannot take off: plane is not at the airport" unless at_airport?(plane)
     @planes.delete(plane)
   end
@@ -24,5 +25,9 @@ class Airport
 
   def full?
     @planes.length >= @capacity
+  end
+
+  def stormy?
+   rand(1..6) > 4
   end
 end
