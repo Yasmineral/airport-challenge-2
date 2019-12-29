@@ -33,4 +33,13 @@ describe 'User Stories' do
     end
     expect { airport.land(plane) }.to raise_error "Cannot land plane: airport full"
   end
+# As the system designer
+# So that the software can be used for many different airports
+# I would like a default airport capacity that can be overridden as appropriate
+  it "airports have a default capacity that can be overridden" do
+    default_airport = Airport.new
+    Airport::DEFAULT_CAPACITY.times { default_airport.land(plane) }
+    expect { default_airport.land(plane) }.to raise_error "Cannot land plane: airport full"
+  end
 end
+

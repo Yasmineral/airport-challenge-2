@@ -20,6 +20,7 @@ describe Airport do
       end
     end
   end
+
   describe "#take_off" do
     it "instructs a plane to take-off" do
       expect(airport).to respond_to(:take_off).with(1).argument
@@ -33,6 +34,14 @@ describe Airport do
       airport.land(plane)
       airport.take_off(plane)
       expect{ airport.take_off(plane) }.to raise_error "Cannot take off: plane is not at the airport"
+    end
+  end
+
+  context "defaults" do
+    let(:default_airport) { described_class.new }
+    it "has a default capacity" do
+      Airport::DEFAULT_CAPACITY.times { default_airport.land(plane) }
+      expect { default_airport.land(plane) }.to raise_error "Cannot land plane: airport full"
     end
   end
 end
