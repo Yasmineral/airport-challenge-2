@@ -20,11 +20,11 @@ describe 'User Stories' do
     # As an air traffic controller 
     # So I can get passengers on the way to their destination 
     # I want to instruct a plane to take off from an airport
+    # and confirm that it is no longer at the airport
     it "so planes take-off from airports, instruct a plane to take-off" do  
       airport.land(plane)
       expect { airport.take_off(plane) }.not_to raise_error
     end
-    # and confirm that it is no longer at the airport
     it "planes that have taken off are no longer at the airport" do
       airport.land(plane)
       airport.take_off(plane)
@@ -45,6 +45,17 @@ describe 'User Stories' do
     it "airports have a default capacity that can be overridden" do
       Airport::DEFAULT_CAPACITY.times { airport.land(plane) }
       expect { airport.land(plane) }.to raise_error "Cannot land plane: airport full"
+    end
+    # planes that are already flying cannot take off and/or be in an airport
+    it "flying planes cannot take off" do
+      airport.land(plane)
+      flying_plane = airport.take_off(plane)
+      expect { flying_plane.take_off }.to raise_error "Plane cannot take-off: already flying"
+    end
+    it "flying planes cannot be in an airport" do
+      airport.land(plane)
+      flying_plane = airport.take_off(plane)
+      expect { flying_plane.airport }.to raise_error "Plane not in airport: already flying"
     end
   end
   
