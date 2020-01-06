@@ -24,13 +24,19 @@ describe Airport do
         airport.land(plane)
         expect(airport.planes).to eq [plane]
       end
+      it "landed planes cannot be landed again" do
+        airport.land(plane)
+        expect { airport.land(plane) }.to raise_error "Cannot land plane: plane already landed"
+      end
     end
     context "when airport is full" do
       it "raises an error" do
         allow(weather).to receive(:stormy?).and_return false
         20.times do
+          plane = Plane.new
           airport.land(plane)
         end
+        plane = Plane.new
         expect { airport.land(plane) }.to raise_error "Cannot land plane: airport full"
       end
     end
@@ -68,7 +74,11 @@ describe Airport do
   context "defaults" do
     it "has a default capacity" do
       allow(weather).to receive(:stormy?).and_return false
-      Airport::DEFAULT_CAPACITY.times { airport.land(plane) }
+      Airport::DEFAULT_CAPACITY.times do
+        plane = Plane.new 
+        airport.land(plane)
+      end
+      plane = Plane.new
       expect { airport.land(plane) }.to raise_error "Cannot land plane: airport full"
     end
   end

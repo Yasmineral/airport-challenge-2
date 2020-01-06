@@ -35,15 +35,21 @@ describe 'User Stories' do
     # I want to prevent landing when the airport is full 
     it "does not allow planes to land when airport is full" do
       20.times do
+        plane = Plane.new
         airport.land(plane)
       end
+      plane = Plane.new
       expect { airport.land(plane) }.to raise_error "Cannot land plane: airport full"
     end
-  # As the system designer
-  # So that the software can be used for many different airports
-  # I would like a default airport capacity that can be overridden as appropriate
+    # As the system designer
+    # So that the software can be used for many different airports
+    # I would like a default airport capacity that can be overridden as appropriate
     it "airports have a default capacity that can be overridden" do
-      Airport::DEFAULT_CAPACITY.times { airport.land(plane) }
+      Airport::DEFAULT_CAPACITY.times do
+        plane = Plane.new 
+        airport.land(plane)
+      end
+      plane = Plane.new
       expect { airport.land(plane) }.to raise_error "Cannot land plane: airport full"
     end
     # planes that are already flying cannot take off and/or be in an airport
@@ -61,6 +67,11 @@ describe 'User Stories' do
    it "landed planes cannot land" do 
     landed_plane = airport.land(plane)
     expect { landed_plane.land }.to raise_error "Plane can't land: already landed"
+   end
+   # airports cannot land planes that have already landed
+   it "airports cannot land planes that have already landed" do
+    landed_plane = airport.land(plane)
+    expect { airport.land(landed_plane ) }.to raise_error "Cannot land plane: plane already landed"
    end
   end
   
