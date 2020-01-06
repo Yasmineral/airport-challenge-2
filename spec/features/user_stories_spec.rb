@@ -57,6 +57,11 @@ describe 'User Stories' do
       flying_plane = airport.take_off(plane)
       expect { flying_plane.airport }.to raise_error "Plane not in airport: already flying"
     end
+    # planes that have landed can't land again
+   it "landed planes cannot land" do 
+    landed_plane = airport.land(plane)
+    expect { landed_plane.land }.to raise_error "Plane can't land: already landed"
+   end
   end
   
   context "when stormy" do

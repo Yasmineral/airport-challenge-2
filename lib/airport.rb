@@ -1,3 +1,6 @@
+require_relative 'plane'
+require_relative 'weather'
+
 class Airport
   attr_accessor :planes
   DEFAULT_CAPACITY = 20
@@ -12,6 +15,7 @@ class Airport
     raise "Cannot land plane: weather is too stormy" if stormy?
     raise "Cannot land plane: airport full" if full?
     @planes << plane
+    plane
   end
 
   def take_off(plane)

@@ -7,4 +7,8 @@ class Plane
   def airport
     raise "Plane not in airport: already flying"
   end
+
+  def land
+    raise "Plane can't land: already landed"
+  end
 end
