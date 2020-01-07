@@ -1,5 +1,7 @@
-Airport Challenge
+Airport Challenge - (take 2)
 =================
+
+I wanted to re-vist the Airport challenge from my first week of Makers, to practice my TDD approach and build a peice of sofwtare incrementally as is the test-driven way!
 
 ```
         ______
